@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             MySpotifyAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Rakhat",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -36,12 +36,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MySpotifyAppTheme {
-        Greeting("Android")
-    }
 }

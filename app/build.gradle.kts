@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.myspotifyapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.myspotifyapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+
+    // Google fonts
+    implementation (libs.androidx.ui.text.google.fonts)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
