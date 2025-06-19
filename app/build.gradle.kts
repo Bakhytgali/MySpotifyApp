@@ -51,6 +51,9 @@ android {
 
 dependencies {
 
+    // Compose ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     // Google fonts
     implementation (libs.androidx.ui.text.google.fonts)
 
