@@ -18,6 +18,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders["appAuthRedirectScheme"] = "myspotifyapp"
     }
 
     buildTypes {
@@ -50,6 +52,8 @@ android {
 }
 
 dependencies {
+    // App Auth (for OAuth2)
+    implementation(libs.appauth)
 
     // Compose ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)

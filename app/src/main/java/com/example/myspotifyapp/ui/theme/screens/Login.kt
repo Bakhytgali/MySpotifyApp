@@ -1,28 +1,16 @@
 package com.example.myspotifyapp.ui.theme.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Login() {
+fun Login(onLoginClick: () -> Unit) {
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -45,7 +33,7 @@ fun Login() {
                 )
                 Spacer(Modifier.height(15.dp))
                 Text(
-                    text = "This app by created by Rakhat Bakhytgali",
+                    text = "This app by Rakhat Bakhytgali",
                     color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -53,9 +41,7 @@ fun Login() {
                 Spacer(Modifier.height(80.dp))
 
                 Button(
-                    onClick = {
-
-                    },
+                    onClick = onLoginClick,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     ),
