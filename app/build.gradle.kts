@@ -52,6 +52,9 @@ android {
 }
 
 dependencies {
+    // Compose Navigation
+    implementation (libs.androidx.navigation.compose)
+
     // App Auth (for OAuth2)
     implementation(libs.appauth)
 

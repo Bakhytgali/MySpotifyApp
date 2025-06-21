@@ -1,22 +1,16 @@
 package com.example.myspotifyapp.viewModels
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import net.openid.appauth.AuthorizationException
+import androidx.lifecycle.AndroidViewModel
+import com.example.myspotifyapp.utils.TokenManager
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.NoClientAuthentication
 
-class AuthViewModel : ViewModel() {
-    var accessToken by mutableStateOf("")
-        private set
-
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
     fun handleAuth(
         intent: Intent,
         activity: Activity,
@@ -60,7 +54,12 @@ class AuthViewModel : ViewModel() {
                 val token = tokenResponse?.accessToken
 
                 if (token != null) {
-                    accessToken = token
+                    TokenManager.saveTokens(
+                        context = getApplication(),
+                        accessToken = tokenResponse.accessToken!!,
+                        refreshToken = tokenResponse.refreshToken,
+                        expiresAt = tokenResponse.accessTokenExpirationTime
+                    )
                     onSuccess(token)
                 } else {
                     onError("❌ Access token was null")

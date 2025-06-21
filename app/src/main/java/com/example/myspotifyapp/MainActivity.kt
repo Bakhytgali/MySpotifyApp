@@ -10,6 +10,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.registerForActivityResult
 import androidx.activity.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.myspotifyapp.data.model.NavOptions
 import com.example.myspotifyapp.ui.theme.MySpotifyAppTheme
 import com.example.myspotifyapp.ui.theme.screens.Login
 import com.example.myspotifyapp.utils.SpotifyAuthManager
@@ -18,19 +22,25 @@ import com.example.myspotifyapp.viewModels.ThemeViewModel
 
 class MainActivity : ComponentActivity() {
     private lateinit var spotifyAuthManager: SpotifyAuthManager
+    private lateinit var navController: NavHostController
     private val themeViewModel = ThemeViewModel()
-    private val authViewModel = AuthViewModel()
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         spotifyAuthManager = SpotifyAuthManager(this)
         setContent {
+            navController = rememberNavController()
             MySpotifyAppTheme(darkTheme = themeViewModel.isDarkMode) {
-                Login {
-                    spotifyAuthManager.startAuth(this)
-                }
+                AppNavigation(
+                    navController = navController,
+                    onClickLogin = {
+                        spotifyAuthManager.startAuth(this)
+                    },
+                    authViewModel = authViewModel,
+                    context = this
+                )
             }
         }
     }
@@ -48,6 +58,9 @@ class MainActivity : ComponentActivity() {
                 authorizationRequest = spotifyAuthManager.lastAuthRequest!!,
                 onSuccess = { token ->
                     Log.d("Spotify Auth", "✅ Success! TOKEN: $token")
+                    navController.navigate(NavOptions.MAIN.screen) {
+                        popUpTo(NavOptions.LOGIN.screen) { inclusive = true }
+                    }
                 },
                 onError = { error ->
                     Log.e("Spotify Auth", "❌ Error: $error")
@@ -55,7 +68,6 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
